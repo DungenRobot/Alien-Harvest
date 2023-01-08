@@ -6,10 +6,6 @@ var popped_polyps = 0
 
 var tubes = 3.0
 
-func _ready():
-	pass
-	#$"Alien placeholder/XRAY placeholder".show()
-	#$"Organs/Polyps/Polyp Timer".start()
 
 func _process(_delta):
 	if popped_polyps > 3:
@@ -59,6 +55,7 @@ func game_over():
 	current_tool = "Hand"
 	$Cursor._on_Toolbar_tool_changed("Hand")
 	$"Game End Tint".show()
+	$"Game End Tint/Lose".show()
 
 
 func _on_Lines_input_event(_viewport, event, _shape_idx):
@@ -85,3 +82,8 @@ func _on_Replacement_input_event(_viewport, event, _shape_idx):
 			child.queue_free()
 		current_tool = "Hand"
 		$Cursor._on_Toolbar_tool_changed("Hand")
+		$"Game End Tint/Win".show()
+
+
+func _on_Restart_Button_button_down():
+	var err = get_tree().change_scene("res://Scenes/Title.tscn")

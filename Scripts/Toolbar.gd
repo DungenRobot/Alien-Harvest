@@ -48,3 +48,4 @@ func make_children_visible():
 
 func _on_ToolBarCollider_mouse_entered():
 	make_children_visible()
+	emit_signal("tool_changed", "Hand")

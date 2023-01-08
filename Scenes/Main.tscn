@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Toolbar.png" type="Texture" id=2]
@@ -33,6 +33,8 @@
 [ext_resource path="res://Assets/Cut.png" type="Texture" id=31]
 [ext_resource path="res://Assets/Sprites/can(RectangleOrganReplacemnt).png" type="Texture" id=32]
 [ext_resource path="res://Assets/Sprites/Tape_strip.png" type="Texture" id=33]
+[ext_resource path="res://Assets/UI/Lose.png" type="Texture" id=34]
+[ext_resource path="res://Assets/UI/Win.png" type="Texture" id=35]
 
 [sub_resource type="Animation" id=4]
 resource_name = "Beating"
@@ -394,6 +396,24 @@ margin_right = 1137.0
 margin_bottom = 716.0
 color = Color( 0, 0, 0, 0.47451 )
 
+[node name="Restart Button" type="Button" parent="Game End Tint"]
+margin_left = 488.0
+margin_top = 485.0
+margin_right = 545.0
+margin_bottom = 505.0
+rect_scale = Vector2( 4, 4 )
+text = "Restart"
+
+[node name="Lose" type="Sprite" parent="Game End Tint"]
+visible = false
+position = Vector2( 664, 146 )
+texture = ExtResource( 34 )
+
+[node name="Win" type="Sprite" parent="Game End Tint"]
+visible = false
+position = Vector2( 660, 149 )
+texture = ExtResource( 35 )
+
 [node name="Cursor" type="Node2D" parent="."]
 position = Vector2( 505, 290 )
 rotation = -3.09095
@@ -485,3 +505,4 @@ texture = ExtResource( 13 )
 [connection signal="input_event" from="Toolbar/Tape" to="Toolbar" method="_on_Tape_input_event"]
 [connection signal="input_event" from="Toolbar/Syringe" to="Toolbar" method="_on_Syringe_input_event"]
 [connection signal="input_event" from="Toolbar/Sharpie" to="Toolbar" method="_on_Sharpie_input_event"]
+[connection signal="button_down" from="Game End Tint/Restart Button" to="." method="_on_Restart_Button_button_down"]
