@@ -1,26 +1,27 @@
 extends StaticBody2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _start():
+	show()
+	$AnimationPlayer.play("Pop")
 	
-	pass
-
 
 func _on_Pallup_input_event(_viewport, event, _shape_idx):
-	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT:
-		pass
+	if event is InputEventMouseButton and event.pressed and event.button_index == BUTTON_LEFT and $AnimationPlayer.is_playing():
+		if $"../../..".current_tool == "Syringe":
+			$AnimationPlayer.stop()
+			hide()
+		if $"../../..".current_tool == "Scalple":
+			$AnimationPlayer.stop()
+			$Sprite.hide()
+			$Popped.show()
+			$"../../..".popped_polyps += 1
 
+func _fail():
+	$"../../..".popped_polyps += 1
 
-func _on_Timer_timeout():
-	pass # Replace with function body.
+func out_fail():
+	$AnimationPlayer.stop()
+	$Sprite.hide()
+	$Popped.show()
+	$CollisionShape2D.disabled = true

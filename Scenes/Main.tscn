@@ -1,14 +1,14 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Scripts/Cursor.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Sprites/Toolbar.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Tools/X-Ray_off.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Sprites/XRAY Mask.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Placeholders/organ.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Placeholders/alienplacehgolderwound.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Placeholders/alienplacehgolderXRAY.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Alien/Organ man.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Alien/Opening.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Alien/Organ2.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Tools/X-Ray_on.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Placeholders/alienplacehgolder.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Alien/Organ1.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Sprites/hand.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Tools/Scalple.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Tools/Sharpie.png" type="Texture" id=12]
@@ -21,40 +21,53 @@
 [ext_resource path="res://Assets/Tools/Sharpie_use.png" type="Texture" id=19]
 [ext_resource path="res://Assets/Sprites/Blood.png" type="Texture" id=20]
 [ext_resource path="res://Scripts/BloodParticles.gd" type="Script" id=21]
-[ext_resource path="res://Assets/Placeholders/Heart.png" type="Texture" id=22]
-[ext_resource path="res://Assets/Placeholders/tube.png" type="Texture" id=23]
-[ext_resource path="res://Assets/Placeholders/Pallup.png" type="Texture" id=24]
-[ext_resource path="res://Scripts/Pallup.gd" type="Script" id=25]
+[ext_resource path="res://Assets/Alien/Tube3.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Alien/Tube2.png" type="Texture" id=23]
+[ext_resource path="res://Scenes/Pallup.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Assets/Alien/Tube1.png" type="Texture" id=25]
 [ext_resource path="res://Assets/Alien/Alien1.png" type="Texture" id=26]
-
-[sub_resource type="CircleShape2D" id=6]
-radius = 31.9531
-
-[sub_resource type="Animation" id=7]
-resource_name = "Pop"
+[ext_resource path="res://Scripts/Tube.gd" type="Script" id=27]
+[ext_resource path="res://Assets/Placeholders/Skeleton.png" type="Texture" id=28]
+[ext_resource path="res://Assets/X-rayGuy.png" type="Texture" id=29]
+[ext_resource path="res://Assets/Alien/Junk.png" type="Texture" id=30]
+[ext_resource path="res://Assets/Cut.png" type="Texture" id=31]
+[ext_resource path="res://Assets/Sprites/can(RectangleOrganReplacemnt).png" type="Texture" id=32]
+[ext_resource path="res://Assets/Sprites/Tape_strip.png" type="Texture" id=33]
 
 [sub_resource type="Animation" id=4]
 resource_name = "Beating"
-length = 0.4
+length = 0.5
 loop = true
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Heart:scale")
+tracks/0/path = NodePath("../Section2:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.06, 0.15 ),
+"times": PoolRealArray( 0, 0.13, 0.24 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.0565712, 0.0246359 ), Vector2( 0.068, 0.025 ), Vector2( 0.0565712, 0.0246359 ) ]
+"values": [ Vector2( 0.930324, 0.930324 ), Vector2( 0.979922, 0.979922 ), Vector2( 0.930324, 0.930324 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Section1:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.08, 0.19 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.947194, 0.947194 ), Vector2( 1.0199, 1.0199 ), Vector2( 0.947194, 0.947194 ) ]
 }
 
 [sub_resource type="Animation" id=5]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Heart:scale")
+tracks/0/path = NodePath("Organ:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -84,111 +97,184 @@ angle_random = 1.0
 scale = 0.99
 scale_random = 0.5
 scale_curve = SubResource( 2 )
-color = Color( 0.4, 0, 0, 1 )
+color = Color( 0.203922, 0.992157, 0.0156863, 1 )
 hue_variation = 0.09
 hue_variation_random = 0.59
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 16 )
 
-[node name="Organs" type="Sprite" parent="."]
+[node name="Organs" type="Node2D" parent="."]
+visible = false
+
+[node name="Guts Background" type="Sprite" parent="Organs"]
+position = Vector2( 686.788, 297.622 )
+rotation = 0.00611781
+scale = Vector2( 1.06324, 1.17772 )
+texture = ExtResource( 5 )
+
+[node name="Polyps" type="Node2D" parent="Organs"]
+position = Vector2( 634.805, 298.662 )
+rotation = 0.00611781
+
+[node name="Pallup" parent="Organs/Polyps" instance=ExtResource( 24 )]
+visible = false
+position = Vector2( 277.642, 235.644 )
+
+[node name="Pallup2" parent="Organs/Polyps" instance=ExtResource( 24 )]
+visible = false
+position = Vector2( -243.385, 232.831 )
+
+[node name="Pallup3" parent="Organs/Polyps" instance=ExtResource( 24 )]
+visible = false
+position = Vector2( 277.507, -113.362 )
+
+[node name="Pallup4" parent="Organs/Polyps" instance=ExtResource( 24 )]
+visible = false
+position = Vector2( -241.845, -169.186 )
+
+[node name="Pallup5" parent="Organs/Polyps" instance=ExtResource( 24 )]
+visible = false
+position = Vector2( 95.9534, -203.253 )
+
+[node name="Pallup6" parent="Organs/Polyps" instance=ExtResource( 24 )]
+visible = false
+position = Vector2( 292.54, 55.5494 )
+
+[node name="Polyp Timer" type="Timer" parent="Organs/Polyps"]
+wait_time = 1.2
+
+[node name="Tubes" type="Node2D" parent="Organs"]
 position = Vector2( 634.805, 298.662 )
 rotation = 0.00611781
 scale = Vector2( 3.60764, 7.36199 )
-texture = ExtResource( 5 )
 
-[node name="Polyp Spawner" type="Node2D" parent="Organs"]
-scale = Vector2( 1, 1 )
+[node name="Tube1" type="StaticBody2D" parent="Organs/Tubes"]
+input_pickable = true
+script = ExtResource( 27 )
 
-[node name="Pallup" type="StaticBody2D" parent="Organs/Polyp Spawner"]
-position = Vector2( 35.2868, 24.5263 )
-rotation = -0.00299798
-scale = Vector2( 0.277186, 0.135841 )
-script = ExtResource( 25 )
+[node name="Sprite" type="Sprite" parent="Organs/Tubes/Tube1"]
+position = Vector2( -47.6755, -48.5761 )
+scale = Vector2( 0.209906, 0.209906 )
+texture = ExtResource( 25 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Organs/Polyp Spawner/Pallup"]
-shape = SubResource( 6 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Organs/Tubes/Tube1"]
+polygon = PoolVector2Array( -38.998, -41.8103, -29.0083, -18.7482, -39.5277, -17.63, -48.4257, -42.0537 )
 
-[node name="Sprite" type="Sprite" parent="Organs/Polyp Spawner/Pallup"]
-texture = ExtResource( 24 )
+[node name="Tube2" type="StaticBody2D" parent="Organs/Tubes"]
+input_pickable = true
+script = ExtResource( 27 )
 
-[node name="Timer" type="Timer" parent="Organs/Polyp Spawner/Pallup"]
-wait_time = 5.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Organs/Polyp Spawner/Pallup"]
-anims/Pop = SubResource( 7 )
-
-[node name="Tube2" type="Sprite" parent="Organs"]
-position = Vector2( -59.5494, -22.7318 )
-rotation = 0.401286
-scale = Vector2( 1.26326, 0.741201 )
+[node name="Sprite" type="Sprite" parent="Organs/Tubes/Tube2"]
+position = Vector2( 6.40424, -46.429 )
+scale = Vector2( 0.243586, 0.243586 )
 texture = ExtResource( 23 )
 
-[node name="Tube" type="Sprite" parent="Organs"]
-position = Vector2( 83.8341, 0.0268707 )
-scale = Vector2( 1.53826, 0.482904 )
-texture = ExtResource( 23 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Organs/Tubes/Tube2"]
+polygon = PoolVector2Array( -3.80067, -42.3233, 10.0602, -42.2291, 7.94035, -12.2031, -3.4666, -15.5648 )
 
-[node name="Tube3" type="Sprite" parent="Organs"]
-position = Vector2( -51.1388, 29.268 )
-rotation = 2.53558
-scale = Vector2( 1.08054, 0.851546 )
-texture = ExtResource( 23 )
+[node name="Tube3" type="StaticBody2D" parent="Organs/Tubes"]
+input_pickable = true
+script = ExtResource( 27 )
 
-[node name="Heart" type="Sprite" parent="Organs"]
-position = Vector2( -8.97266, -3.55457 )
-scale = Vector2( 0.0565712, 0.0246359 )
+[node name="Sprite" type="Sprite" parent="Organs/Tubes/Tube3"]
+position = Vector2( 54.865, -28.1007 )
+scale = Vector2( 0.170497, 0.170497 )
 texture = ExtResource( 22 )
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Organs/Tubes/Tube3"]
+polygon = PoolVector2Array( 55.7957, -42.3662, 51.148, -37.1905, 47.0648, -31.2015, 42.4578, -22.7659, 35.0942, -13.0995, 32.642, -9.69626, 44.076, -4.16129, 48.4432, -9.6078, 54.1725, -16.9601, 58.5159, -24.3082, 62.8626, -31.3847, 66.6567, -38.3237, 68.5512, -41.9969 )
+
+[node name="Section2" type="Sprite" parent="Organs"]
+position = Vector2( 667.648, 364.658 )
+rotation = 0.00611781
+scale = Vector2( 0.930324, 0.930324 )
+texture = ExtResource( 7 )
+
+[node name="Section1" type="Sprite" parent="Organs"]
+position = Vector2( 526.599, 264.564 )
+rotation = 0.00611781
+scale = Vector2( 0.947194, 0.947194 )
+texture = ExtResource( 9 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Organs"]
+root_node = NodePath("../Guts Background")
+autoplay = "Beating"
 reset_on_save = false
 anims/Beating = SubResource( 4 )
 anims/RESET = SubResource( 5 )
 
+[node name="Replacement" type="StaticBody2D" parent="Organs"]
+visible = false
+position = Vector2( 624, 339 )
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Organs/Replacement"]
+polygon = PoolVector2Array( 74, -125, 110, -117, 144, -65, 135, -29, -13, 57, -51, 59, -91, -4, -88, -42 )
+
+[node name="Can(RectangleOrganReplacemnt)" type="Sprite" parent="Organs/Replacement"]
+position = Vector2( 26, -32 )
+scale = Vector2( 1.589, 1.589 )
+texture = ExtResource( 32 )
+
+[node name="Tape" type="Node2D" parent="Organs/Replacement"]
+visible = false
+
+[node name="TapeStrip2" type="Sprite" parent="Organs/Replacement/Tape"]
+position = Vector2( 15, -13 )
+rotation = 1.37243
+texture = ExtResource( 33 )
+
+[node name="TapeStrip" type="Sprite" parent="Organs/Replacement/Tape"]
+position = Vector2( 9, -30.9999 )
+rotation = 2.08338
+texture = ExtResource( 33 )
+
 [node name="Alien" type="Sprite" parent="."]
-visible = false
-position = Vector2( 647, 307 )
-scale = Vector2( 0.677, 0.677 )
+position = Vector2( 707, 305 )
+scale = Vector2( 0.854125, 0.884 )
 texture = ExtResource( 26 )
-
-[node name="Alien placeholder" type="Sprite" parent="."]
-visible = false
-position = Vector2( 1611, 258 )
-scale = Vector2( 5.13, 5.13 )
-texture = ExtResource( 9 )
-
-[node name="XRAY placeholder" type="Sprite" parent="Alien placeholder"]
-visible = false
-light_mask = 2
-z_index = 1
-texture = ExtResource( 7 )
-
-[node name="ColorRect" type="ColorRect" parent="Alien placeholder/XRAY placeholder"]
-show_behind_parent = true
-light_mask = 2
-margin_left = -137.0
-margin_top = -67.0
-margin_right = 82.0
-margin_bottom = 66.0
-mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
 
 [node name="Alien Guts" type="StaticBody2D" parent="."]
 visible = false
-position = Vector2( 95, 93 )
+position = Vector2( 9, 63 )
+scale = Vector2( 1.21369, 1.324 )
 input_pickable = true
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Openthing" type="Sprite" parent="Alien Guts"]
-position = Vector2( 580, 258.9 )
-scale = Vector2( 4.35656, 4.35656 )
+position = Vector2( 584.5, 264.09 )
+scale = Vector2( 0.626344, 0.626344 )
 texture = ExtResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Alien Guts"]
 position = Vector2( 0, -59.1 )
-polygon = PoolVector2Array( 575, 150, 679, 211, 639, 279, 663, 350, 627, 396, 637, 464, 618, 483, 564, 483, 526, 440, 469, 413, 454, 359, 486, 317, 449, 264, 454, 227, 508, 198 )
+polygon = PoolVector2Array( 566, 187.1, 673, 238.1, 670, 277.1, 643, 314.1, 646, 341.1, 670, 393.1, 671, 414.1, 648, 438.1, 605, 461.1, 572, 459.1, 525, 419.1, 488, 409.1, 472, 370.1, 502, 345.1, 512, 330.1, 515, 297.1, 484, 253.1, 494, 216.1, 522, 209.1, 546, 187.1 )
+
+[node name="Lines" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2( -3, -8 )
+input_pickable = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Cut" type="Sprite" parent="Lines"]
+position = Vector2( 698, 403.418 )
+rotation = 1.57079
+scale = Vector2( 2.16841, 1.16956 )
+texture = ExtResource( 31 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lines"]
+polygon = PoolVector2Array( 705, 225, 735, 253, 736, 542, 700, 582, 667, 561, 663, 258 )
+
+[node name="Draw" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Draw"]
+polygon = PoolVector2Array( 619, 248, 823, 307, 846, 574, 509, 573, 525, 342 )
 
 [node name="Toolbar" type="Sprite" parent="."]
 modulate = Color( 0.658824, 0.658824, 0.658824, 1 )
@@ -265,8 +351,50 @@ texture = ExtResource( 12 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Toolbar/Sharpie"]
 polygon = PoolVector2Array( -304.668, -507.781, -193.284, -511.057, -186.732, -497.953, -206.388, -409.5, -193.284, -370.188, -190.008, -288.288, -176.904, -150.696, -186.732, -81.9001, -226.044, -65.5201, -281.736, -68.7961, -301.392, -95.0041, -314.496, -357.084, -294.84, -402.948, -317.772, -465.193 )
 
-[node name="Cursor" type="Node2D" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+light_mask = 2
+margin_left = -281.704
+margin_top = -181.313
+margin_right = 1462.3
+margin_bottom = 762.687
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="X-Ray" type="Sprite" parent="."]
+light_mask = 2
+position = Vector2( 707.644, 306.25 )
+scale = Vector2( 1.0872, 1.13917 )
+texture = ExtResource( 29 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Skeleton" type="Sprite" parent="X-Ray"]
+light_mask = 2
+position = Vector2( 80.3494, 13.8259 )
+scale = Vector2( -1, 1 )
+texture = ExtResource( 28 )
+
+[node name="Junk" type="Sprite" parent="X-Ray"]
+light_mask = 2
+position = Vector2( 10.5371, -3.39374 )
+scale = Vector2( 0.914027, 0.914027 )
+texture = ExtResource( 30 )
+
+[node name="Game End Tint" type="ColorRect" parent="."]
 visible = false
+margin_left = -97.0
+margin_top = -59.0
+margin_right = 1137.0
+margin_bottom = 716.0
+color = Color( 0, 0, 0, 0.47451 )
+
+[node name="Cursor" type="Node2D" parent="."]
 position = Vector2( 505, 290 )
 rotation = -3.09095
 scale = Vector2( 0.206, 0.206 )
@@ -287,7 +415,6 @@ texture = ExtResource( 11 )
 flip_v = true
 
 [node name="Particles2D" type="Particles2D" parent="Cursor/Scalple"]
-visible = false
 show_behind_parent = true
 position = Vector2( 287.995, -4.62848 )
 rotation = -3.7282
@@ -341,9 +468,14 @@ rotation = -0.0506426
 scale = Vector2( 1.40675, -1.40675 )
 texture = ExtResource( 13 )
 
-[connection signal="input_event" from="Organs/Polyp Spawner/Pallup" to="Organs/Polyp Spawner/Pallup" method="_on_Pallup_input_event"]
-[connection signal="timeout" from="Organs/Polyp Spawner/Pallup/Timer" to="Organs/Polyp Spawner/Pallup" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Organs/Polyps/Polyp Timer" to="." method="_on_Polyp_Timer_timeout"]
+[connection signal="input_event" from="Organs/Tubes/Tube1" to="Organs/Tubes/Tube1" method="_on_Tube1_input_event"]
+[connection signal="input_event" from="Organs/Tubes/Tube2" to="Organs/Tubes/Tube2" method="_on_Tube2_input_event"]
+[connection signal="input_event" from="Organs/Tubes/Tube3" to="Organs/Tubes/Tube3" method="_on_Tube3_input_event"]
+[connection signal="input_event" from="Organs/Replacement" to="." method="_on_Replacement_input_event"]
 [connection signal="input_event" from="Alien Guts" to="." method="_on_Alien_Guts_input_event"]
+[connection signal="input_event" from="Lines" to="." method="_on_Lines_input_event"]
+[connection signal="input_event" from="Draw" to="." method="_on_Draw_input_event"]
 [connection signal="tool_changed" from="Toolbar" to="." method="_on_Toolbar_tool_changed"]
 [connection signal="tool_changed" from="Toolbar" to="Cursor" method="_on_Toolbar_tool_changed"]
 [connection signal="mouse_entered" from="Toolbar/ToolBarCollider" to="Toolbar" method="_on_ToolBarCollider_mouse_entered"]

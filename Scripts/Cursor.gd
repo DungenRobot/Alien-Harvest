@@ -11,31 +11,9 @@ func _ready():
 func _process(_delta):
 	position = mouse_pos
 
-func _unhandled_input(event):
+func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_pos = event.position
-	if event is InputEventMouseButton:
-		match current_cursor:
-			"Hand":
-				if position.x < 270 and event.pressed: return
-				print("Hand click")
-				pass
-			"Scalple":
-				if position.x < 270 and event.pressed: return
-				print("Scalple click")
-				pass
-			"Tape":
-				if position.x < 270 and event.pressed: return
-				print("Tape click")
-				pass
-			"Sharpie":
-				if position.x < 270 and event.pressed: return
-				print("Sharpie click")
-				pass
-			"Syringe":
-				if position.x < 270 and event.pressed: return
-				print("Syringe click")
-				pass
 
 func _on_Toolbar_tool_changed(new_tool):
 	if new_tool == "X-Ray":
